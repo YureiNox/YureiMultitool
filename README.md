@@ -1,6 +1,6 @@
 # Tableau des Outils
 
-## Outils
+## TOOL
 | Numéro | Outil                        | Description                                   |
 |--------|------------------------------|-----------------------------------------------|
 | 1      | [Base64 Encoder](#base64-encoder)               | Encode du texte en Base64                     |
@@ -12,7 +12,7 @@
 | 7      | [String Reverser](#string-reverser)              | Inverse une chaîne de texte                   |
 | 8      | [Back](#back)                         | Retourne au menu principal                    |
 
-## Web
+## WEB
 | Numéro | Fonctionnalité               | Description                                   |
 |--------|------------------------------|-----------------------------------------------|
 | 1      | [IP Lookup](#ip-lookup)                    | Recherche d'informations sur une adresse IP   |
