@@ -1,3 +1,5 @@
+copyright: rockyou.txt
+
 # Tableau des Outils
 
 ## TOOL
