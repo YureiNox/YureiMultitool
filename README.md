@@ -1,6 +1,6 @@
 copyright: rockyou.txt
 
- Copyright © by Dwi Siswanto 2020
+ Copyright for SSB tool © by Dwi Siswanto 2020
 
 # Tableau des Outils
 
