@@ -1,4 +1,5 @@
 copyright: rockyou.txt
+copyright: https://github.com/pwnesia/ssb
 
 # Tableau des Outils
 
